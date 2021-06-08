@@ -1,0 +1,27 @@
+version: '3'
+services:
+  zookeeper:
+    image: zookeeper:3.5.8
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka:2.13-2.6.0
+    container_name: kafka
+    ports:
+      - "9094:9094"
+    environment:
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://:9092,OUTSIDE://localhost:9094
+      KAFKA_LISTENERS: INSIDE://:9092,OUTSIDE://:9094
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_CREATE_TOPICS: "test:1:1"
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  prosto:
+#    image: devidea/presto:0.254.1
+    build: presto/
+    container_name: presto
+    ports:
+      - "8080:8080"

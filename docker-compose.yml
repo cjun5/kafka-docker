@@ -1,7 +1,8 @@
-version: '2'
+version: '3'
 services:
   zookeeper:
-    image: wurstmeister/zookeeper
+    image: zookeeper:3.5.8
+    container_name: zookeeper_3.5.8
     ports:
       - "2181:2181"
   kafka:
