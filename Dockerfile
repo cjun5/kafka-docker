@@ -1,4 +1,4 @@
-FROM arm64v8/openjdk:8u322-jdk-oraclelinux8@sha256:c0531f3934858472f9ff3f911ac296a6e3825b807f7e0694748d7ff23f71d4d3
+FROM arm64v8/amazoncorretto:8u322@sha256:3754fd53fa87fc14f61551b1a3af3741cf0b2c04890816d57d7f01f9716b1680
 
 ARG kafka_version=2.8.1
 ARG scala_version=2.13
@@ -24,8 +24,7 @@ ENV PATH=${PATH}:${KAFKA_HOME}/bin
 
 COPY download-kafka.sh start-kafka.sh broker-list.sh create-topics.sh versions.sh /tmp/
 
-RUN apk add --no-cache bash curl jq docker \
- && chmod a+x /tmp/*.sh \
+RUN chmod a+x /tmp/*.sh \
  && mv /tmp/start-kafka.sh /tmp/broker-list.sh /tmp/create-topics.sh /tmp/versions.sh /usr/bin \
  && sync && /tmp/download-kafka.sh \
  && tar xfz /tmp/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz -C /opt \
