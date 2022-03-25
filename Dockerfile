@@ -1,4 +1,4 @@
-FROM arm64v8/amazoncorretto:8u322@sha256:3754fd53fa87fc14f61551b1a3af3741cf0b2c04890816d57d7f01f9716b1680
+FROM azul/zulu-openjdk-alpine:8u292-8.54.0.21
 
 ARG kafka_version=2.8.1
 ARG scala_version=2.13
@@ -24,7 +24,8 @@ ENV PATH=${PATH}:${KAFKA_HOME}/bin
 
 COPY download-kafka.sh start-kafka.sh broker-list.sh create-topics.sh versions.sh /tmp/
 
-RUN chmod a+x /tmp/*.sh \
+RUN apk add --no-cache bash curl jq docker \
+ && chmod a+x /tmp/*.sh \
  && mv /tmp/start-kafka.sh /tmp/broker-list.sh /tmp/create-topics.sh /tmp/versions.sh /usr/bin \
  && sync && /tmp/download-kafka.sh \
  && tar xfz /tmp/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz -C /opt \
