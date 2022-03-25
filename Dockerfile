@@ -1,4 +1,4 @@
-FROM azul/zulu-openjdk-alpine:8u292-8.54.0.21
+FROM arm64v8/openjdk:8u322-jdk-oraclelinux8@sha256:c0531f3934858472f9ff3f911ac296a6e3825b807f7e0694748d7ff23f71d4d3
 
 ARG kafka_version=2.8.1
 ARG scala_version=2.13
