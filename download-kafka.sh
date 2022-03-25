@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 # shellcheck disable=SC1091
-source "/usr/bin/versions.sh"
+. "/usr/bin/versions.sh"
 
 FILENAME="kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz"
 
@@ -14,5 +14,5 @@ if [[ ! $(curl -f -s -r 0-1 "${url}") ]]; then
     url="https://archive.apache.org/dist/kafka/${KAFKA_VERSION}/${FILENAME}"
 fi
 
-echo "Downloading Kafka from $url"
+echo "dDownloading Kafka from $url"
 wget "${url}" -O "/tmp/${FILENAME}"
